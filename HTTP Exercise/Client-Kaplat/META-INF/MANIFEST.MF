@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: client.Main
+Class-Path: 3rd/gson-2.1.jar 3rd/gson-2.1-javadoc.jar 3rd/gson-2.1-sourc
+ es.jar 3rd/annotations-13.0.jar 3rd/kotlin-stdlib-1.4.10.jar 3rd/kotlin
+ -stdlib-common-1.4.10.jar 3rd/okhttp-4.9.1.jar 3rd/okio-2.8.0.jar
+
