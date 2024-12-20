@@ -87,6 +87,6 @@ The primary goal was to:
 4. Access the server via port `8574` and test endpoints using tools like Postman.
 5. Check the `logs` folder for generated log files.
 
-###Run:
+### Run:
 - Run the run.bat file.
 - Using the supplied Postman collection, postman environment that I give you.
