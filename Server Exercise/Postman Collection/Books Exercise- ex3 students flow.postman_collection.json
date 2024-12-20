@@ -1,0 +1,562 @@
+{
+	"info": {
+		"_postman_id": "ee1da086-0eac-4960-af10-dd41a4f0336b",
+		"name": "Books Exercise: ex3 students flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16700889",
+		"_collection_link": "https://mta-automation.postman.co/workspace/practical-tools~fc617429-33d3-44a1-b6b1-81e38fff92da/collection/16700889-ee1da086-0eac-4960-af10-dd41a4f0336b?action=share&source=collection_link&creator=16700889"
+	},
+	"item": [
+		{
+			"name": "Get total Books",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Initial quanitiy of 0 books\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/books/total",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"total"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "abc",
+							"disabled": true
+						},
+						{
+							"key": "price-bigger-than",
+							"value": "65",
+							"disabled": true
+						},
+						{
+							"key": "price-less-than",
+							"value": "88",
+							"disabled": true
+						},
+						{
+							"key": "year-bigger-than",
+							"value": "1998",
+							"disabled": true
+						},
+						{
+							"key": "year-less-than",
+							"value": "2000",
+							"disabled": true
+						},
+						{
+							"key": "genres",
+							"value": "PROFESSIONAL",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create first Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"first book ID expected to be 1\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"The Partner\",\r\n    \"author\": \"John Grisham\",\r\n    \"year\": 1994,\r\n    \"price\": 70,\r\n    \"genres\": [\"ROMANCE\",\"PROFESSIONAL\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attempt to create duplicate Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should not succeed create a book that already exists\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.errorMessage).to.contain(\"already exists in the system\");    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"The Partner\",\r\n    \"author\": \"John Grisham\",\r\n    \"year\": 1994,\r\n    \"price\": 70,\r\n    \"genres\": [\"ROMANCE\",\"PROFESSIONAL\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Book 1 details",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"first book year\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result.year).to.eql(1994);    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/book?id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"book"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create second Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"second book ID expected to be 3\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"A time to kill\",\r\n    \"author\": \"John Grisham\",\r\n    \"year\": 1991,\r\n    \"price\": 50,\r\n    \"genres\": [\"ROMANCE\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create third Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"third book ID expected to be 3\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"half proof\",\r\n    \"author\": \"Uri Levron\",\r\n    \"year\": 2010,\r\n    \"price\": 89,\r\n    \"genres\": [\"ROMANCE\",\"NOVEL\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books of John Grisham",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"John Grisham should have 2 books\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result[0].title).to.contain(\"time to kill\");\r",
+							"    pm.expect(jsonData.result[1].title).to.contain(\"Partner\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/books?author=John Grisham",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "John Grisham"
+						},
+						{
+							"key": "price-bigger-than",
+							"value": "65",
+							"disabled": true
+						},
+						{
+							"key": "price-less-than",
+							"value": "75",
+							"disabled": true
+						},
+						{
+							"key": "year-bigger-than",
+							"value": "2000",
+							"disabled": true
+						},
+						{
+							"key": "year-less-than",
+							"value": "1998",
+							"disabled": true
+						},
+						{
+							"key": "genres",
+							"value": "PROFESSIONAL",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Books by genres: PROFESSIONAL, NOVEL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"should have 2 books in these genres\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result.length).to.eql(2);\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/books?genres=PROFESSIONAL,NOVEL",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "abc",
+							"disabled": true
+						},
+						{
+							"key": "price-bigger-than",
+							"value": "65",
+							"disabled": true
+						},
+						{
+							"key": "price-less-than",
+							"value": "75",
+							"disabled": true
+						},
+						{
+							"key": "year-bigger-than",
+							"value": "2000",
+							"disabled": true
+						},
+						{
+							"key": "year-less-than",
+							"value": "1998",
+							"disabled": true
+						},
+						{
+							"key": "genres",
+							"value": "PROFESSIONAL,NOVEL"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book's price",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"old book price is 70\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(70);    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/book?id=1&price=50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"book"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "price",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete second Book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"delete a book and remain with 2\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(2);    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/book?id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"book"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get total Books after deletion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Initial quanitiy of 0 books\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.result).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/books/total",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"books",
+						"total"
+					],
+					"query": [
+						{
+							"key": "author",
+							"value": "abc",
+							"disabled": true
+						},
+						{
+							"key": "price-bigger-than",
+							"value": "65",
+							"disabled": true
+						},
+						{
+							"key": "price-less-than",
+							"value": "88",
+							"disabled": true
+						},
+						{
+							"key": "year-bigger-than",
+							"value": "1998",
+							"disabled": true
+						},
+						{
+							"key": "year-less-than",
+							"value": "2000",
+							"disabled": true
+						},
+						{
+							"key": "genres",
+							"value": "PROFESSIONAL",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
