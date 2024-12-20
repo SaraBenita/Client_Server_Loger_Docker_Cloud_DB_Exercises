@@ -60,20 +60,6 @@ This project demonstrates interaction with external HTTP services using Java's H
      - `id`: Value of the `message` field from the PUT response.
    - Response: None.
 
-## Setup and Execution
-
-1. Compile the project:
-   ```bash
-   javac -cp .:json-library.jar Main.java
-   ```
-
-2. Run the application:
-   ```bash
-   java -cp .:json-library.jar Main
-   ```
-
-3. Ensure the target server is running on `localhost:6767`.
-
 ## Testing
 - Use the provided dummy server for local testing.
 - Verify that all requests are performed in the correct order and responses match expectations.
