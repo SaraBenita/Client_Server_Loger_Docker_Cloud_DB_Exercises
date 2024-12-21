@@ -26,7 +26,3 @@ This task required containerizing the server developed in a previous exercise us
 
 4. **Validation:**
    - Tested the container using HTTP requests to ensure compliance with the exercise's requirements.
-
-## Challenges and Solutions
-- **Cross-Platform Compatibility:** Used the `--platform linux/amd64` flag to ensure the image worked across different operating systems.
-- **Port Mapping:** Ensured correct mapping between internal and external ports to enable smooth communication.
